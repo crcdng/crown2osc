@@ -2,6 +2,9 @@
 
 Script adapted by Team Sensvyra for Cyberdelic Hackathon, c-base, Nov 8-9 2025 
 
+crcdng Moritz Federlein Paula Ducatenzeiler Metanoic Vision
+Anja Frank Güngör Kocak Sophie Adler Jan Sladecko
+
 This project connects to the Neurosity Crown device, retrieves focus data, and sends it via OSC (Open Sound Control) to a specified address.
 
 ## Prerequisites
