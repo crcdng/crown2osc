@@ -1,5 +1,7 @@
 # Neurosity Crown Focus 2 OSC
 
+Script adapted by Team Sensvyra for Cyberdelic Hackathon, c-base, Nov 8-9 2025 
+
 This project connects to the Neurosity Crown device, retrieves focus data, and sends it via OSC (Open Sound Control) to a specified address.
 
 ## Prerequisites
