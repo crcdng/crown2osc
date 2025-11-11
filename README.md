@@ -17,16 +17,13 @@ npm start -- -f -a 127.0.0.1 -p 9000
 
 real data (requires Neurosity developer credentials in file `.env`)
 
-<<<<<<< HEAD
-Once the script is running, it will log in to the Neurosity device and start sending focus data via OSC to the specified address. You can monitor the output in your terminal.
+```
+npm start -- -a 127.0.0.1 -p 9000   
+```
 
-Address: /focus/probability
+- it is now using the latest Neurosity SDK (v 7)
+- for this it was necessary to swith from UMD to ES modules
 
 ## License
 
 This project is licensed under the MIT License.
-=======
-```
-npm start -- -a 127.0.0.1 -p 9000   
-```
->>>>>>> de40c45 (remove redundant)
