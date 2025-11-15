@@ -1,4 +1,4 @@
-# Neurosity Crown Focus 2 OSC
+# Neurosity Crown 2 OSC
 
 Script adapted by Team Sensvyra for Cyberdelic Hackathon, c-base, Nov 8-9 2025 
 
@@ -9,20 +9,27 @@ This project connects to the Neurosity Crown device, retrieves focus data, and s
 
 sensvyra version
 
-fake data
-
 ```
-npm start -- -f -a 127.0.0.1 -p 9000   
+npm start -- -f -s -a 127.0.0.1 -p 9000   
 ```
 
-real data (requires Neurosity developer credentials in file `.env`)
+-a target address (default: 127.0.0.1)   
+-p target port (default: 9000)    
+-s silent (no logging of data, default: logging)    
+-f fake data (default: device data) 
 
-```
-npm start -- -a 127.0.0.1 -p 9000   
-```
+receiving device data requires Neurosity developer credentials in file `.env`:     
+DEVICE_ID="\<YOUR DEVICE ID\>"    
+EMAIL="\<YOUR NEUROSITY EMAIL\>"      
+PASSWORD="\<YOUR NEUROSITY PASSWORD\>"    
 
-- it is now using the latest Neurosity SDK (v 7)
-- for this it was necessary to swith from UMD to ES modules
+CTRL-C to stop
+
+## Updates
+
+- adding various command line switches for convenience
+- the script is now using the latest Neurosity SDK (v 7)
+- for this it was necessary to switch from UMD to ES modules
 
 ## License
 

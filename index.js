@@ -1,5 +1,5 @@
 // Sends /calm and /focus floats via OSC to Unity
-// flags: -a 127.0.0.1  -p 9000  -f (fake mode)
+// flags: -a 127.0.0.1 -p 9000 -f (fake mode) -s (silent, no data log)
 
 import { Neurosity } from "@neurosity/sdk";
 import { Client } from 'node-osc';
@@ -11,20 +11,22 @@ const args = minimist(process.argv.slice(2));
 const remoteAddress = args.a || "127.0.0.1";
 const remotePort = Number(args.p || 9000);
 const fakeMode = !!args.f;
+const silentMode = !!args.s;
 
 console.log(`Using OSC target: ${remoteAddress}:${remotePort}`);
 
-if (fakeMode) { console.log("fake data mode"); } else { console.log("real data mode") };
+if (fakeMode) { console.log("fake data mode"); } else { console.log("device data mode") };
+if (silentMode) { console.log("silent, no data is logged"); } else { console.log("data is logged below") };
 
 const client = new Client(remoteAddress, remotePort);
 
-function sendOsc(address, value) {
+function sendOsc(address, value, silent, realdata) {
 
   client.send(
     address,
     Number(value));
 
-  console.log(`OSC data sent: ${address} ${value}`);
+  if (!silent) { console.log(`OSC ${realdata ? "device" : "fake"} data: ${address} ${value} $` ); }
 }
 
 // -------------------- DATA SOURCES --------------------
@@ -42,8 +44,8 @@ if (fakeMode) {
     // 0..1 with a little easing
     const calm = Math.max(0, Math.min(1, (Math.sin(Date.now() / 900) + 1) / 2));
     const focus = Math.max(0, Math.min(1, (Math.cos(Date.now() / 1100) + 1) / 2));
-    sendOsc("/calm", calm);
-    sendOsc("/focus", focus);
+    sendOsc("/calm", calm, silentMode, false);
+    sendOsc("/focus", focus, silentMode, false);
   }, 100);
 } else {
 
@@ -77,13 +79,13 @@ if (fakeMode) {
       // Focus stream
       neurosity.focus().subscribe((f) => {
         const val = clamp01(f.probability ?? f.value ?? f);
-        sendOsc("/focus", val);
+        sendOsc("/focus", val, silentMode, true);
       });
 
       // Calm stream
       neurosity.calm().subscribe((c) => {
         const val = clamp01(c.probability ?? c.value ?? c);
-        sendOsc("/calm", val);
+        sendOsc("/calm", val, silentMode, true);
       });
     } catch (e) {
       console.error("Neurosity error:", e);
